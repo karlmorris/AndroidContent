@@ -15,8 +15,6 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.security.Permission;
-
 public class MainActivity extends Activity {
 
     ContentResolver cr;
