@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.security.Permission;
 
@@ -106,7 +107,7 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        
+
         if (id == R.id.action_settings) {
             return true;
         }
@@ -118,6 +119,11 @@ public class MainActivity extends Activity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+        else {
+            Toast.makeText(MainActivity.this, "This app cannot function without access to your contacts", Toast.LENGTH_LONG).show();
+            finish();
+        }
     }
 }
