@@ -34,10 +34,6 @@ public class MainActivity extends Activity {
         cr = getContentResolver();
 
 
-        // Check for permission to read contacts and get cursor
-        if ((android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) && checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
-            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, 1234);
-
         contactName = (TextView) findViewById(R.id.nameTextView);
         symbolEditText = (EditText) findViewById(R.id.symbolEditText);
 
@@ -61,15 +57,5 @@ public class MainActivity extends Activity {
 
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
-        else {
-            Toast.makeText(MainActivity.this, "This app cannot function without access to the data source", Toast.LENGTH_LONG).show();
-            finish();
-        }
-    }
 }
